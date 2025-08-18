@@ -44,7 +44,7 @@
 		);
 	}
 </script>
-
+<!-- 
 <div class="flex flex-col w-full items-start">
 	{#each selectedModels as selectedModel, selectedModelIdx}
 		<div class="flex w-full max-w-fit">
@@ -133,4 +133,4 @@
 	>
 		<button on:click={saveDefaultModel}> {$i18n.t('Set as default')}</button>
 	</div>
-{/if}
+{/if} -->
