@@ -15,6 +15,7 @@ from pydantic import BaseModel
 from sqlalchemy import JSON, Column, DateTime, Integer, func
 from authlib.integrations.starlette_client import OAuth
 
+RAFFLE_KEY = os.environ.get("RAFFLE_KEY", "")
 
 from open_webui.env import (
     DATA_DIR,
@@ -914,7 +915,7 @@ if OPENAI_API_BASE_URL == "":
     OPENAI_API_BASE_URL = "https://raffle.openai.azure.com:10025"
 
 # For local development you can just paste the OpenAI API key here
-OPENAI_API_KEYS = ""
+OPENAI_API_KEYS = RAFFLE_KEY
 OPENAI_API_KEYS = OPENAI_API_KEYS if OPENAI_API_KEYS != "" else OPENAI_API_KEY
 
 OPENAI_API_KEYS = [url.strip() for url in OPENAI_API_KEYS.split(";")]
