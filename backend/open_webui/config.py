@@ -914,7 +914,7 @@ if OPENAI_API_BASE_URL == "":
     OPENAI_API_BASE_URL = "https://raffle.openai.azure.com:10025"
 
 # For local development you can just paste the OpenAI API key here
-OPENAI_API_KEYS = ""
+OPENAI_API_KEYS = "299f6e10a1d44db1a9d7383631f4126b"
 OPENAI_API_KEYS = OPENAI_API_KEYS if OPENAI_API_KEYS != "" else OPENAI_API_KEY
 
 OPENAI_API_KEYS = [url.strip() for url in OPENAI_API_KEYS.split(";")]
