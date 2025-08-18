@@ -839,7 +839,8 @@ ENABLE_DIRECT_CONNECTIONS = PersistentConfig(
 ENABLE_OLLAMA_API = PersistentConfig(
     "ENABLE_OLLAMA_API",
     "ollama.enable",
-    os.environ.get("ENABLE_OLLAMA_API", "True").lower() == "true",
+    # We don't use ollama by default, so we set it to False
+    False
 )
 
 OLLAMA_API_BASE_URL = os.environ.get(
@@ -910,9 +911,10 @@ GEMINI_API_BASE_URL = os.environ.get("GEMINI_API_BASE_URL", "")
 
 
 if OPENAI_API_BASE_URL == "":
-    OPENAI_API_BASE_URL = "https://api.openai.com/v1"
+    OPENAI_API_BASE_URL = "https://raffle.openai.azure.com:10025"
 
-OPENAI_API_KEYS = os.environ.get("OPENAI_API_KEYS", "")
+# For local development you can just paste the OpenAI API key here
+OPENAI_API_KEYS = ""
 OPENAI_API_KEYS = OPENAI_API_KEYS if OPENAI_API_KEYS != "" else OPENAI_API_KEY
 
 OPENAI_API_KEYS = [url.strip() for url in OPENAI_API_KEYS.split(";")]
@@ -926,7 +928,7 @@ OPENAI_API_BASE_URLS = (
 )
 
 OPENAI_API_BASE_URLS = [
-    url.strip() if url != "" else "https://api.openai.com/v1"
+    url.strip() if url != "" else "https://raffle.openai.azure.com:10025"
     for url in OPENAI_API_BASE_URLS.split(";")
 ]
 OPENAI_API_BASE_URLS = PersistentConfig(
@@ -936,18 +938,27 @@ OPENAI_API_BASE_URLS = PersistentConfig(
 OPENAI_API_CONFIGS = PersistentConfig(
     "OPENAI_API_CONFIGS",
     "openai.api_configs",
-    {},
+    # Default configuration for the POC environment
+    # More models can be added here and will be available in the UI
+    {
+        "0": {
+                "azure": "true",
+                "api_version": "2025-01-01-preview",
+                "enable": "true",
+                "model_ids": ["raffle-webui-poc"]
+            }
+    }
 )
 
 # Get the actual OpenAI API key based on the base URL
 OPENAI_API_KEY = ""
 try:
     OPENAI_API_KEY = OPENAI_API_KEYS.value[
-        OPENAI_API_BASE_URLS.value.index("https://api.openai.com/v1")
+        OPENAI_API_BASE_URLS.value.index("https://raffle.openai.azure.com:10025")
     ]
 except Exception:
     pass
-OPENAI_API_BASE_URL = "https://api.openai.com/v1"
+OPENAI_API_BASE_URL = "https://raffle.openai.azure.com:10025"
 
 
 ####################################
